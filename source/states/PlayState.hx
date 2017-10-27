@@ -67,7 +67,7 @@ private function entityCreator(entityName:String, entityData:Xml)
 				player = new Player();
 
 				player.x = x;
-				player.y = y;
+				player.y = y-100;
 				add(player);
 
 			case "Enemies":
