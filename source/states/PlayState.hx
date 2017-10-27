@@ -1,5 +1,6 @@
 package states;
 
+import entities.Attack;
 import entities.Enemy1;
 import entities.Guide;
 import entities.Player;
@@ -11,6 +12,7 @@ import flixel.text.FlxText;
 import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.tile.FlxTilemap;
 import flixel.addons.display.FlxBackdrop;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 class PlayState extends FlxState
 {
@@ -21,16 +23,19 @@ class PlayState extends FlxState
 	private var tileMap:FlxTilemap;
 	private var backGround:FlxBackdrop;
 	private var guide:Guide;
+	private var enemies1:FlxTypedGroup<Enemy1>;
+	
 
 	override public function create():Void
 	{
-		super.create();
+		super.create();		
+		enemies1 = new FlxTypedGroup<Enemy1>();
 		loader = new FlxOgmoLoader(AssetPaths.level__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 16, 16, "Tilesets");
 		loader.loadEntities(entityCreator, "Entities");
 		
 		guide = new Guide(player.x, FlxG.height/2);
-		//backGround = new FlxBackdrop(AssetPaths.fondo__png);
+		//backGround = new FlxBackdrop(AssetPaths.Fondo__jpg);
 
 		
 	
@@ -38,13 +43,12 @@ class PlayState extends FlxState
 		FlxG.worldBounds.set(0, 0, tileMap.width, tileMap.height);
 		
 		FlxG.camera.follow(guide);
-
+        checkTileCollision();
 		//add(backGround);
 		add(tileMap);
 		add(guide);
 
-		tileMap.setTileProperties(0, FlxObject.NONE);
-		tileMap.setTileProperties(1, FlxObject.ANY);
+		
 
 	}
 
@@ -53,6 +57,8 @@ class PlayState extends FlxState
 		super.update(elapsed);
 		guide.getPlayerPos(player.x, player.y);
 		FlxG.collide(tileMap, player);
+		FlxG.collide(enemies1, player, colPlayerEnemy1);
+		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1); 
 		
 	}
 
@@ -74,9 +80,28 @@ private function entityCreator(entityName:String, entityData:Xml)
 				var enemy1 = new Enemy1();
 				enemy1.x = x;
 				enemy1.y = y;
-				add(enemy1);
+				enemies1.add(enemy1);
+				add(enemies1);
 				
 
 		}
+	}
+	
+	private function colPlayerEnemy1(e:Enemy1, p:Player):Void
+	{
+		enemies1.remove(e, true);
+		player.die();		
+	}
+	
+	private function colAttackEnemy1(a:Attack, e:Enemy1):Void
+	{
+		enemies1.remove(e, true);			
+	}
+	
+	private function checkTileCollision():Void
+	{
+		tileMap.setTileProperties(0, FlxObject.NONE);
+		tileMap.setTileProperties(1, FlxObject.ANY);
+		tileMap.setTileProperties(2, FlxObject.ANY);
 	}
 }

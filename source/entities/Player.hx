@@ -14,13 +14,15 @@ enum States
 	IDLE;
 	RUN;
 	JUMP;
-	
+	ATTACK;
+
 }
 class Player extends FlxSprite
 {
 
 	public var currentState(get, null):States;
-	private var atk:Attack;
+	private var atk(get, null):Attack;
+	private var lives:Int;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
@@ -28,11 +30,13 @@ class Player extends FlxSprite
 		loadGraphic(AssetPaths.Robocop__png, true, 24, 48);
 		animation.add("idle", [0, 1], 6, true);
 		animation.add("run", [2, 9], 6, true);
+		animation.add("jump", [11], 6, true);
 		atk = new Attack();
 		FlxG.state.add(atk);
 		acceleration.y = 1600;
 		currentState = States.IDLE;
-		
+		lives = 10;
+
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 	}
@@ -45,11 +49,11 @@ class Player extends FlxSprite
 
 	private function stateMachine():Void
 	{
-		attack();
-		
+
 		switch (currentState)
 		{
 			case States.IDLE:
+				attack();
 				horizontalMovement();
 				jump();
 				animation.play("idle");
@@ -59,6 +63,7 @@ class Player extends FlxSprite
 					currentState = States.RUN;
 
 			case States.RUN:
+				attack();
 				horizontalMovement();
 				jump();
 				animation.play("run");
@@ -68,7 +73,9 @@ class Player extends FlxSprite
 					currentState = States.IDLE;
 
 			case States.JUMP:
-				
+				attack();
+				animation.play("jump");
+
 				if (velocity.y == 0)
 				{
 					if (velocity.x == 0)
@@ -76,22 +83,29 @@ class Player extends FlxSprite
 					else
 						currentState = States.RUN;
 				}
-				
-					
+
+			case States.ATTACK:
+				attack();
+				this.velocity.x = 0;
+				if (!atk.alive)
+				{
+					currentState = States.IDLE;
+				}
+
 		}
 	}
 
 	private function horizontalMovement():Void
 	{
 		velocity.x = 0;
-		
+
 		if (FlxG.keys.pressed.RIGHT)
-		{	
+		{
 			velocity.x += 100;
 			facing = FlxObject.RIGHT;
 		}
 		if (FlxG.keys.pressed.LEFT)
-		{	
+		{
 			velocity.x -= 100;
 			facing = FlxObject.LEFT;
 		}
@@ -100,7 +114,10 @@ class Player extends FlxSprite
 	private function jump():Void
 	{
 		if (FlxG.keys.justPressed.UP && isTouching(FlxObject.FLOOR))
+		{
 			velocity.y = -600;
+
+		}
 	}
 
 	function get_currentState():States
@@ -110,17 +127,31 @@ class Player extends FlxSprite
 
 	public function attack():Void
 	{
-		
+
 		if (FlxG.keys.justPressed.SPACE && !atk.alive)
 		{
-			atk.reset(this.x, this.y);
-		
-					
+			currentState = States.ATTACK;
+			atk.reset(this.x + 8, this.y + 15);
 
 		}
+
+		if (facing == FlxObject.RIGHT)
 			atk.velocity.x = 200;
+		else
+			atk.velocity.x = -200;
 
-		
+	}
 
+	public function die():Void
+	{
+		if (lives==0)
+		{
+			this.kill();
+		}
+	}
+	
+	public function get_atk():Attack 
+	{
+		return atk;
 	}
 }

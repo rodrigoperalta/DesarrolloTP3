@@ -26,15 +26,11 @@ class Attack extends FlxSprite
 	{
 		super.update(elapsed);
 		addTime();
-		//movement();
 		die();
 
 	}
 
-	private function movement():Void
-	{
-		velocity.x = 200;
-	}
+	
 
 	private function die():Void
 	{
