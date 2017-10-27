@@ -76,7 +76,7 @@ private function entityCreator(entityName:String, entityData:Xml)
 				player.y = y-100;
 				add(player);
 
-			case "Enemies":
+			case "Enemies1":
 				var enemy1 = new Enemy1();
 				enemy1.x = x;
 				enemy1.y = y;
