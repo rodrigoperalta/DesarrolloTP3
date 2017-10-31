@@ -18,11 +18,13 @@ class Guide extends FlxSprite
 		super(X, Y, SimpleGraphic);
 		makeGraphic(1, 1, 0x00000000);
 		playerX = X;
+		playerY = Y;
 	}
 	
 	override public function update(elapsed:Float):Void
 	{
-		this.x = playerX;		
+		this.x = playerX;
+		this.y = playerY;
 		super.update(elapsed);
 	}
 	

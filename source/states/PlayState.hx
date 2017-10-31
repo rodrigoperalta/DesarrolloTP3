@@ -4,6 +4,7 @@ import entities.Attack;
 import entities.Enemy1;
 import entities.Guide;
 import entities.Player;
+import entities.Fire;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
@@ -25,11 +26,16 @@ class PlayState extends FlxState
 	private var guide:Guide;
 	private var enemies1:FlxTypedGroup<Enemy1>;
 	
+	private var obsfire:FlxTypedGroup<Fire>;
+	
 
 	override public function create():Void
 	{
 		super.create();		
 		enemies1 = new FlxTypedGroup<Enemy1>();
+		
+		obsfire = new FlxTypedGroup<Fire>();
+		
 		loader = new FlxOgmoLoader(AssetPaths.level__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 16, 16, "Tilesets");
 		loader.loadEntities(entityCreator, "Entities");
@@ -47,7 +53,7 @@ class PlayState extends FlxState
 		//add(backGround);
 		add(tileMap);
 		add(guide);
-
+		add(obsfire);
 		
 
 	}
@@ -59,7 +65,8 @@ class PlayState extends FlxState
 		FlxG.collide(tileMap, player);
 		FlxG.collide(enemies1, player, colPlayerEnemy1);
 		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1); 
-		
+		//FlxG.collide(obsfire, player, colPlayerObsFire);
+		FlxG.overlap(obsfire, player, colPlayerObsFire);
 	}
 
 private function entityCreator(entityName:String, entityData:Xml)
@@ -83,7 +90,13 @@ private function entityCreator(entityName:String, entityData:Xml)
 				enemies1.add(enemy1);
 				add(enemies1);
 				
-
+	        
+			case "Fire":
+				var obstaculoFire = new Fire();
+				obstaculoFire.x = x;
+				obstaculoFire.y = y;
+				obsfire.add(obstaculoFire);
+				add(obsfire);
 		}
 	}
 	
@@ -93,6 +106,10 @@ private function entityCreator(entityName:String, entityData:Xml)
 		player.die();		
 	}
 	
+	private function colPlayerObsFire(f:Fire, p:Player):Void
+	{
+		p.die();
+	}
 	private function colAttackEnemy1(a:Attack, e:Enemy1):Void
 	{
 		enemies1.remove(e, true);			
