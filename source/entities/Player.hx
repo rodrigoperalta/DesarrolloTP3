@@ -28,7 +28,6 @@ class Player extends FlxSprite
 	private var ammo:Int;
 	private var powerUp0Side:Bool;
 
-
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
@@ -42,7 +41,7 @@ class Player extends FlxSprite
 		FlxG.state.add(powerUp0);
 		acceleration.y = 1600;
 		currentState = States.IDLE;
-		lives = 10;	
+		lives = 10;
 		width = 15;
 		ammo = 5;
 		offset.x = 2;
@@ -58,10 +57,7 @@ class Player extends FlxSprite
 	{
 		stateMachine();
 		super.update(elapsed);
-		
-		
-		
-		
+
 	}
 
 	private function stateMachine():Void
@@ -149,43 +145,52 @@ class Player extends FlxSprite
 	public function attack():Void
 	{
 
-		
 		if (FlxG.keys.justPressed.SPACE && !atk.alive)
 		{
 			currentState = States.ATTACK;
 			atk.reset(this.x + 8, this.y + 15);
 
 		}
-		
-		if (powerUp == 0) 
+
+		if (FlxG.keys.justPressed.Z && ammo > 0 && !powerUp0.alive)
 		{
-			if (FlxG.keys.justPressed.Z && ammo > 0 && !powerUp0.alive)
+			if (powerUp == 0)
 			{
-			currentState = States.ATTACK;
-			powerUp0.reset(this.x + 8, this.y + 15);
-			powerUp0.acceleration.y = 1600;
-			ammo -= 1;
+
+				currentState = States.ATTACK;
+				powerUp0.reset(this.x + 8, this.y + 15);
+				powerUp0.acceleration.y = 1600;
+				ammo -= 1;
+
 			}
-		}	
+
+			if (powerUp == 3)
+			{
+
+				currentState = States.ATTACK;
+				powerUp3.reset(this.x + 8, this.y + 15);
+				ammo -= 1;
+
+			}
+		}
 
 		if (facing == FlxObject.RIGHT)
-			{
+		{
 			atk.velocity.x = 200;
 			if (powerUp0.velocity.y ==0)
 			{
-			powerUp0.velocity.x = 400;
-			powerUp0.velocity.y = -300;
+				powerUp0.velocity.x = 400;
+				powerUp0.velocity.y = -300;
 			}
-		
-		
-			}
+
+		}
 		else
 		{
 			atk.velocity.x = -200;
 			if (powerUp0.velocity.y ==0)
 			{
-			powerUp0.velocity.x = -400;
-			powerUp0.velocity.y = -300;		
+				powerUp0.velocity.x = -400;
+				powerUp0.velocity.y = -300;
 			}
 		}
 
@@ -199,26 +204,24 @@ class Player extends FlxSprite
 			this.kill();
 		}
 	}
-	
-	public function get_atk():Attack 
+
+	public function get_atk():Attack
 	{
 		return atk;
 	}
-	
+
 	public function getPowerUp(pU:Int):Void
 	{
 		powerUp = pU;
-		if (powerUp == 1) 
+		if (powerUp == 1)
 		{
 			ammo += 5;
 		}
-		
-		if (powerUp == 2) 
+
+		if (powerUp == 2)
 		{
 			lives += 5;
 		}
 	}
-	
-	
-	
+
 }
