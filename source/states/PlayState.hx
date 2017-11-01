@@ -83,6 +83,8 @@ class PlayState extends FlxState
 		FlxG.collide(enemies1, player, colPlayerEnemy1);
 		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1); 
 		FlxG.overlap(obsfire, player, colPlayerObsFire);
+		FlxG.collide(enemies4 , tileMap);
+		enemies4.forEachAlive(checkEnemyVision);
 	
 	}
 
@@ -150,5 +152,15 @@ private function entityCreator(entityName:String, entityData:Xml)
 		tileMap.setTileProperties(0, FlxObject.NONE);
 		tileMap.setTileProperties(1, FlxObject.ANY);
 		tileMap.setTileProperties(2, FlxObject.ANY);
+	}
+	private function checkEnemyVision(e:Enemy4):Void
+	{
+		if (tileMap.ray(e.getMidpoint(), player.getMidpoint()))
+		{
+			e.seesPlayer = true;
+			e.playerPos.copyFrom(player.getMidpoint());
+		}
+		else
+			e.seesPlayer = false;
 	}
 }
