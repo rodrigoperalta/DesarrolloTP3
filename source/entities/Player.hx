@@ -102,10 +102,10 @@ class Player extends FlxSprite
 		}
 	}
 
-	private function horizontalMovement():Void
+	private function horizontalMovement():Void //esta haciendo conflicto con el objeto deslizante
 	{
-		velocity.x = 0;
-
+		velocity.x = 0; //esto hace que no se mueva al parecer
+		
 		if (FlxG.keys.pressed.RIGHT)
 		{
 			velocity.x += 100;

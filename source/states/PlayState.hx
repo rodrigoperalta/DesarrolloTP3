@@ -1,11 +1,13 @@
 package states;
 
 import entities.Attack;
+import entities.Deslizante;
 import entities.Enemy1;
 import entities.Guide;
 import entities.Player;
 import entities.Fire;
 import entities.PowerUp;
+import entities.Pinchos;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
@@ -27,8 +29,9 @@ class PlayState extends FlxState
 	private var guide:Guide;
 	private var enemies1:FlxTypedGroup<Enemy1>;
 	private var powerUps:FlxTypedGroup<PowerUp>;
-	
+	private var obspinchos:FlxTypedGroup<Pinchos>;
 	private var obsfire:FlxTypedGroup<Fire>;
+	private var obsdeslizante:FlxTypedGroup<Deslizante>;
 	
 
 	override public function create():Void
@@ -36,7 +39,9 @@ class PlayState extends FlxState
 		super.create();		
 		enemies1 = new FlxTypedGroup<Enemy1>();
 		powerUps = new FlxTypedGroup<PowerUp>();
-		obsfire = new FlxTypedGroup<Fire>();		
+		obsfire = new FlxTypedGroup<Fire>();
+		obspinchos = new FlxTypedGroup<Pinchos>();
+		obsdeslizante = new FlxTypedGroup<Deslizante>();
 		loader = new FlxOgmoLoader(AssetPaths.level__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 16, 16, "Tilesets");
 		loader.loadEntities(entityCreator, "Entities");
@@ -45,7 +50,7 @@ class PlayState extends FlxState
 		//backGround = new FlxBackdrop(AssetPaths.Fondo__jpg);
 
 		
-	
+		
 
 		FlxG.worldBounds.set(0, 0, tileMap.width, tileMap.height);
 		
@@ -56,7 +61,8 @@ class PlayState extends FlxState
 		add(tileMap);
 		add(guide);
 		add(obsfire);
-		
+		add(obspinchos);
+		add(obsdeslizante);
 
 	}
 
@@ -68,7 +74,11 @@ class PlayState extends FlxState
 		FlxG.collide(enemies1, player, colPlayerEnemy1);
 		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1); 
 		FlxG.overlap(obsfire, player, colPlayerObsFire);
+		FlxG.overlap(obspinchos, player, colPlayerObsPincho);
+		FlxG.collide(obsdeslizante, player, colPlayerObsDeslizante);
 	
+		if (FlxG.keys.justPressed.R)
+			FlxG.resetState();
 	}
 
 private function entityCreator(entityName:String, entityData:Xml)
@@ -99,6 +109,21 @@ private function entityCreator(entityName:String, entityData:Xml)
 				obstaculoFire.y = y;
 				obsfire.add(obstaculoFire);
 				add(obsfire);
+				
+			
+			case "Pinchos":
+				var obstaculoPincho = new Pinchos();
+				obstaculoPincho.x = x;
+				obstaculoPincho.y = y;
+				obspinchos.add(obstaculoPincho);
+				add(obspinchos);
+			
+			case "Deslizante":
+				var obstaculoDeslizante = new Deslizante();
+				obstaculoDeslizante.x = x;
+				obstaculoDeslizante.y = y;
+				obsdeslizante.add(obstaculoDeslizante);
+				add(obsdeslizante);
 		}
 	}
 	
@@ -112,6 +137,23 @@ private function entityCreator(entityName:String, entityData:Xml)
 	{
 	  p.die();
 	}
+	
+	private function colPlayerObsPincho(pi:Pinchos, p:Player):Void
+	{
+	  p.die();
+	}
+	
+	private function colPlayerObsDeslizante(d:Deslizante, p:Player):Void
+	{
+		/*if(p.velocity.x > 0)
+			p.velocity.x += 100;
+		else 
+			p.velocity.x -= 100;
+			*/
+		p.velocity.set(100, 0);
+		trace ("holis");
+	}
+	
 	private function colAttackEnemy1(a:Attack, e:Enemy1):Void
 	{
 		enemies1.remove(e, true);	
