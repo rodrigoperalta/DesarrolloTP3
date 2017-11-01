@@ -68,7 +68,7 @@ class PlayState extends FlxState
 		FlxG.collide(enemies1, player, colPlayerEnemy1);
 		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1); 
 		FlxG.overlap(obsfire, player, colPlayerObsFire);
-	
+	    FlxG.collide(powerUps, player, colPlayerPowerUps);
 	}
 
 private function entityCreator(entityName:String, entityData:Xml)
@@ -124,4 +124,11 @@ private function entityCreator(entityName:String, entityData:Xml)
 		tileMap.setTileProperties(1, FlxObject.ANY);
 		tileMap.setTileProperties(2, FlxObject.ANY);
 	}
+	
+	private function colPlayerPowerUps(pU:PowerUp, p:Player):Void
+	{
+		powerUps.remove(pU, true);
+		player.getPowerUp(pU.get_t());	
+	}
+	
 }

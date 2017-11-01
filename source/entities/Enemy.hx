@@ -9,41 +9,47 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
  * ...
  * @author ...
  */
-class Enemy extends FlxSprite 
+class Enemy extends FlxSprite
 {
-	
+
 	
 	private var timerPU:Int;
+	private var pUtype: Int;
 	private var powerUps:FlxTypedGroup <PowerUp>;
 
-	public function new(pU:FlxTypedGroup<PowerUp>, ?X:Float = 0, ?Y:Float = 0, ?SimpleGraphic:FlxGraphicAsset) 
+	public function new(pU:FlxTypedGroup<PowerUp>, ?X:Float = 0, ?Y:Float = 0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		powerUps = pU;
+		pUtype = 0;
 		super(X, Y, SimpleGraphic);
-		
 		timerPU = 0;
-		
+
 	}
-	
+
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
 		timerPU += 1;
-		if (timerPU>50)
-		timerPU = 0;	
+		pUtype += 1;
+		if (timerPU > 50)
+			timerPU = 0;
+		if (pUtype >= 4)
+			pUtype = 0;
+			
+			
 	}
-	
+
 	public function dropPowerUp():Void
 	{
-		
-		if (timerPU % 5 == 0) 
+
+		if (timerPU % 1 == 0)
 		{
-			var powerUp = new PowerUp(this.x, this.y);
+			var powerUp = new PowerUp(pUtype, this.x, this.y);
 			powerUps.add(powerUp);
-			FlxG.state.add(powerUps);			
-			
+		    FlxG.state.add(powerUps);
 		}
 		
+
 	}
-	
+
 }

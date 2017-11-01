@@ -23,6 +23,11 @@ class Player extends FlxSprite
 	public var currentState(get, null):States;
 	private var atk(get, null):Attack;
 	private var lives:Int;
+	private var powerUp:Int;
+	private var powerUp0:PowerUp0;
+	private var ammo:Int;
+	private var powerUp0Side:Bool;
+
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
@@ -32,16 +37,17 @@ class Player extends FlxSprite
 		animation.add("run", [2, 9], 6, true);
 		animation.add("jump", [11], 6, true);
 		atk = new Attack();
+		powerUp0 = new PowerUp0();
 		FlxG.state.add(atk);
+		FlxG.state.add(powerUp0);
 		acceleration.y = 1600;
 		currentState = States.IDLE;
-		lives = 10;
-		
+		lives = 10;	
 		width = 15;
+		ammo = 5;
 		offset.x = 2;
 		//height = 190;
 		//offset.set(130, 20);
-
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 		//if (setFacingFlip(LEFT))
@@ -52,6 +58,10 @@ class Player extends FlxSprite
 	{
 		stateMachine();
 		super.update(elapsed);
+		
+		
+		
+		
 	}
 
 	private function stateMachine():Void
@@ -98,6 +108,10 @@ class Player extends FlxSprite
 				{
 					currentState = States.IDLE;
 				}
+				if (!powerUp0.alive)
+				{
+					currentState = States.IDLE;
+				}
 
 		}
 	}
@@ -135,17 +149,45 @@ class Player extends FlxSprite
 	public function attack():Void
 	{
 
+		
 		if (FlxG.keys.justPressed.SPACE && !atk.alive)
 		{
 			currentState = States.ATTACK;
 			atk.reset(this.x + 8, this.y + 15);
 
 		}
+		
+		if (powerUp == 0) 
+		{
+			if (FlxG.keys.justPressed.Z && ammo > 0 && !powerUp0.alive)
+			{
+			currentState = States.ATTACK;
+			powerUp0.reset(this.x + 8, this.y + 15);
+			powerUp0.acceleration.y = 1600;
+			ammo -= 1;
+			}
+		}	
 
 		if (facing == FlxObject.RIGHT)
+			{
 			atk.velocity.x = 200;
+			if (powerUp0.velocity.y ==0)
+			{
+			powerUp0.velocity.x = 400;
+			powerUp0.velocity.y = -300;
+			}
+		
+		
+			}
 		else
+		{
 			atk.velocity.x = -200;
+			if (powerUp0.velocity.y ==0)
+			{
+			powerUp0.velocity.x = -400;
+			powerUp0.velocity.y = -300;		
+			}
+		}
 
 	}
 
@@ -162,4 +204,21 @@ class Player extends FlxSprite
 	{
 		return atk;
 	}
+	
+	public function getPowerUp(pU:Int):Void
+	{
+		powerUp = pU;
+		if (powerUp == 1) 
+		{
+			ammo += 5;
+		}
+		
+		if (powerUp == 2) 
+		{
+			lives += 5;
+		}
+	}
+	
+	
+	
 }
