@@ -49,6 +49,7 @@ class PlayState extends FlxState
 		FlxG.worldBounds.set(0, 0, tileMap.width, tileMap.height);
 		
 		FlxG.camera.follow(guide);
+		FlxG.camera.setScrollBounds(0, tileMap.width, 0, tileMap.height);
         checkTileCollision();
 		//add(backGround);
 		add(tileMap);
