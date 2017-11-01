@@ -25,6 +25,7 @@ class Player extends FlxSprite
 	private var lives:Int;
 	private var powerUp:Int;
 	private var powerUp0:PowerUp0;
+	private var powerUp3:PowerUp3;
 	private var ammo:Int;
 	private var powerUp0Side:Bool;
 
@@ -37,6 +38,7 @@ class Player extends FlxSprite
 		animation.add("jump", [11], 6, true);
 		atk = new Attack();
 		powerUp0 = new PowerUp0();
+		powerUp3 = new PowerUp3();
 		FlxG.state.add(atk);
 		FlxG.state.add(powerUp0);
 		acceleration.y = 1600;
