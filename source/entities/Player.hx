@@ -35,9 +35,17 @@ class Player extends FlxSprite
 		FlxG.state.add(atk);
 		acceleration.y = 1600;
 		currentState = States.IDLE;
-		lives = 1;
+		lives = 10;
+		
+		width = 15;
+		offset.x = 2;
+		//height = 190;
+		//offset.set(130, 20);
+
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
+		//if (setFacingFlip(LEFT))
+		//	offset.x = 0;
 	}
 
 	override public function update(elapsed:Float):Void
