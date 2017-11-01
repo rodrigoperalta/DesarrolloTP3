@@ -1,6 +1,7 @@
 package states;
 
 import entities.Attack;
+import entities.Deslizante;
 import entities.Enemy1;
 import entities.Enemy2;
 import entities.Enemy3;
@@ -9,6 +10,7 @@ import entities.Guide;
 import entities.Player;
 import entities.Fire;
 import entities.PowerUp;
+import entities.Pinchos;
 import entities.Shot;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -37,7 +39,9 @@ class PlayState extends FlxState
 	private var enemies3:FlxTypedGroup<Enemy3>;
 	private var enemies4:FlxTypedGroup<Enemy4>;
 	private var powerUps:FlxTypedGroup<PowerUp>;
+	private var obspinchos:FlxTypedGroup<Pinchos>;
 	private var obsfire:FlxTypedGroup<Fire>;
+	private var obsdeslizante:FlxTypedGroup<Deslizante>;
 	private var enemybullet:FlxTypedGroup<Shot>;
 	
 
@@ -49,9 +53,11 @@ class PlayState extends FlxState
 		enemies3 = new FlxTypedGroup<Enemy3>();
 		enemies4 = new FlxTypedGroup<Enemy4>();
 		powerUps = new FlxTypedGroup<PowerUp>();
+		obsfire = new FlxTypedGroup<Fire>();
+		obspinchos = new FlxTypedGroup<Pinchos>();
+		obsdeslizante = new FlxTypedGroup<Deslizante>();
 		obsfire = new FlxTypedGroup<Fire>();	
 		enemybullet = new FlxTypedGroup<Shot>();
-		
 		loader = new FlxOgmoLoader(AssetPaths.level__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 16, 16, "Tilesets");
 		loader.loadEntities(entityCreator, "Entities");
@@ -60,7 +66,7 @@ class PlayState extends FlxState
 		//backGround = new FlxBackdrop(AssetPaths.Fondo__jpg);
 
 		
-	
+		
 
 		FlxG.worldBounds.set(0, 0, tileMap.width, tileMap.height);
 		
@@ -71,7 +77,8 @@ class PlayState extends FlxState
 		add(tileMap);
 		add(guide);
 		add(obsfire);
-		
+		add(obspinchos);
+		add(obsdeslizante);
 
 	}
 
@@ -83,7 +90,13 @@ class PlayState extends FlxState
 		FlxG.collide(enemies1, player, colPlayerEnemy1);
 		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1); 
 		FlxG.overlap(obsfire, player, colPlayerObsFire);
+		enemies4.forEachAlive(checkEnemyVision);
+		FlxG.collide(enemies4 , tileMap);
 	    FlxG.collide(powerUps, player, colPlayerPowerUps);
+		FlxG.overlap(obspinchos, player, colPlayerObsPincho);
+		FlxG.collide(obsdeslizante, player, colPlayerObsDeslizante);
+		if (FlxG.keys.justPressed.R)
+			FlxG.resetState();
 	}
 
 private function entityCreator(entityName:String, entityData:Xml)
@@ -126,6 +139,21 @@ private function entityCreator(entityName:String, entityData:Xml)
 				obstaculoFire.y = y;
 				obsfire.add(obstaculoFire);
 				add(obsfire);
+				
+			
+			case "Pinchos":
+				var obstaculoPincho = new Pinchos();
+				obstaculoPincho.x = x;
+				obstaculoPincho.y = y;
+				obspinchos.add(obstaculoPincho);
+				add(obspinchos);
+			
+			case "Deslizante":
+				var obstaculoDeslizante = new Deslizante();
+				obstaculoDeslizante.x = x;
+				obstaculoDeslizante.y = y;
+				obsdeslizante.add(obstaculoDeslizante);
+				add(obsdeslizante);
 		}
 	}
 	
@@ -139,6 +167,23 @@ private function entityCreator(entityName:String, entityData:Xml)
 	{
 	  p.die();
 	}
+	
+	private function colPlayerObsPincho(pi:Pinchos, p:Player):Void
+	{
+	  p.die();
+	}
+	
+	private function colPlayerObsDeslizante(d:Deslizante, p:Player):Void
+	{
+		/*if(p.velocity.x > 0)
+			p.velocity.x += 100;
+		else 
+			p.velocity.x -= 100;
+			*/
+		p.velocity.set(100, 0);
+		trace ("holis");
+	}
+	
 	private function colAttackEnemy1(a:Attack, e:Enemy1):Void
 	{
 		enemies1.remove(e, true);	
@@ -151,11 +196,19 @@ private function entityCreator(entityName:String, entityData:Xml)
 		tileMap.setTileProperties(1, FlxObject.ANY);
 		tileMap.setTileProperties(2, FlxObject.ANY);
 	}
-	
+	private function checkEnemyVision(e:Enemy4):Void
+	{
+		if (tileMap.ray(e.getMidpoint(), player.getMidpoint()))
+		{
+			e.seesPlayer = true;
+			e.playerPos.copyFrom(player.getMidpoint());
+		}
+		else
+			e.seesPlayer = false;
+	}
 	private function colPlayerPowerUps(pU:PowerUp, p:Player):Void
 	{
 		powerUps.remove(pU, true);
 		player.getPowerUp(pU.get_t());	
 	}
-	
 }
