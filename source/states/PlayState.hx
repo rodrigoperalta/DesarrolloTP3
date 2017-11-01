@@ -5,6 +5,7 @@ import entities.Enemy1;
 import entities.Guide;
 import entities.Player;
 import entities.Fire;
+import entities.PowerUp;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
@@ -25,6 +26,7 @@ class PlayState extends FlxState
 	private var backGround:FlxBackdrop;
 	private var guide:Guide;
 	private var enemies1:FlxTypedGroup<Enemy1>;
+	private var powerUps:FlxTypedGroup<PowerUp>;
 	
 	private var obsfire:FlxTypedGroup<Fire>;
 	
@@ -33,9 +35,8 @@ class PlayState extends FlxState
 	{
 		super.create();		
 		enemies1 = new FlxTypedGroup<Enemy1>();
-		
-		obsfire = new FlxTypedGroup<Fire>();
-		
+		powerUps = new FlxTypedGroup<PowerUp>();
+		obsfire = new FlxTypedGroup<Fire>();		
 		loader = new FlxOgmoLoader(AssetPaths.level__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 16, 16, "Tilesets");
 		loader.loadEntities(entityCreator, "Entities");
@@ -66,8 +67,8 @@ class PlayState extends FlxState
 		FlxG.collide(tileMap, player);
 		FlxG.collide(enemies1, player, colPlayerEnemy1);
 		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1); 
-		//FlxG.collide(obsfire, player, colPlayerObsFire);
 		FlxG.overlap(obsfire, player, colPlayerObsFire);
+	
 	}
 
 private function entityCreator(entityName:String, entityData:Xml)
@@ -85,7 +86,7 @@ private function entityCreator(entityName:String, entityData:Xml)
 				add(player);
 
 			case "Enemies1":
-				var enemy1 = new Enemy1();
+				var enemy1 = new Enemy1(powerUps);
 				enemy1.x = x;
 				enemy1.y = y;
 				enemies1.add(enemy1);
@@ -109,11 +110,12 @@ private function entityCreator(entityName:String, entityData:Xml)
 	
 	private function colPlayerObsFire(f:Fire, p:Player):Void
 	{
-		p.die();
+	  p.die();
 	}
 	private function colAttackEnemy1(a:Attack, e:Enemy1):Void
 	{
-		enemies1.remove(e, true);			
+		enemies1.remove(e, true);	
+		e.dropPowerUp();
 	}
 	
 	private function checkTileCollision():Void

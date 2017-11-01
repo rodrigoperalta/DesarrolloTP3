@@ -35,8 +35,7 @@ class Player extends FlxSprite
 		FlxG.state.add(atk);
 		acceleration.y = 1600;
 		currentState = States.IDLE;
-		lives = 10;
-
+		lives = 1;
 		setFacingFlip(FlxObject.RIGHT, false, false);
 		setFacingFlip(FlxObject.LEFT, true, false);
 	}
@@ -144,6 +143,7 @@ class Player extends FlxSprite
 
 	public function die():Void
 	{
+		lives--;
 		if (lives==0)
 		{
 			this.kill();
