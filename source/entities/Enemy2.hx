@@ -31,7 +31,8 @@ class Enemy2 extends Enemy
 	public function movement():Void
 	{
 		velocity.x = -50;
-		FlxTween.tween(this, { y: y+8 }, 2, {type:FlxTween.PINGPONG, ease: FlxEase.sineInOut});
+		var v = y + 35;
+		FlxTween.tween(this, { y: v }, 0.5, {type:FlxTween.PINGPONG, ease: FlxEase.sineInOut});
 		
 	}
 }

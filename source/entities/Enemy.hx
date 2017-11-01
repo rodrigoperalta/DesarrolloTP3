@@ -13,6 +13,7 @@ class Enemy extends FlxSprite
 {
 	
 	
+	
 	private var timerPU:Int;
 	private var powerUps:FlxTypedGroup <PowerUp>;
 

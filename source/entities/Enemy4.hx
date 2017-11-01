@@ -21,7 +21,7 @@ class Enemy4 extends Enemy
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		movement();
+		//movement();
 		
 	}
 	

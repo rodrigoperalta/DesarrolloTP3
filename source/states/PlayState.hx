@@ -9,6 +9,7 @@ import entities.Guide;
 import entities.Player;
 import entities.Fire;
 import entities.PowerUp;
+import entities.Shot;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
@@ -37,6 +38,7 @@ class PlayState extends FlxState
 	private var enemies4:FlxTypedGroup<Enemy4>;
 	private var powerUps:FlxTypedGroup<PowerUp>;
 	private var obsfire:FlxTypedGroup<Fire>;
+	private var enemybullet:FlxTypedGroup<Shot>;
 	
 
 	override public function create():Void
@@ -47,7 +49,8 @@ class PlayState extends FlxState
 		enemies3 = new FlxTypedGroup<Enemy3>();
 		enemies4 = new FlxTypedGroup<Enemy4>();
 		powerUps = new FlxTypedGroup<PowerUp>();
-		obsfire = new FlxTypedGroup<Fire>();		
+		obsfire = new FlxTypedGroup<Fire>();	
+		enemybullet = new FlxTypedGroup<Shot>();
 		
 		loader = new FlxOgmoLoader(AssetPaths.level__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 16, 16, "Tilesets");
@@ -98,30 +101,22 @@ private function entityCreator(entityName:String, entityData:Xml)
 				add(player);
 
 			case "Enemies1":
-				var enemy1 = new Enemy1(powerUps);
-				enemy1.x = x;
-				enemy1.y = y;
+				var enemy1 = new Enemy1(powerUps, x, y);
 				enemies1.add(enemy1);
 				add(enemies1);
 				
 	        case "Enemies2":
-				var enemy2 = new Enemy2(powerUps);
-				enemy2.x = x;
-				enemy2.y = y;
+				var enemy2 = new Enemy2(powerUps, x, y);
 				enemies2.add(enemy2);
 				add(enemy2);
 				
 			case "Enemies3":
-				var enemy3 = new Enemy3(powerUps);
-				enemy3.x = x;
-				enemy3.y = y;
+				var enemy3 = new Enemy3(powerUps, enemybullet,x, y);
 				enemies3.add(enemy3);
 				add(enemies3);
 				
 	        case "Enemies4":
-				var enemy4 = new Enemy4(powerUps);
-				enemy4.x = x;
-				enemy4.y = y;
+				var enemy4 = new Enemy4(powerUps, x, y);
 				enemies4.add(enemy4);
 				add(enemy4);
 			
