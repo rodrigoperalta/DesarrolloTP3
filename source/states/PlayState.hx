@@ -7,6 +7,7 @@ import entities.Enemy2;
 import entities.Enemy3;
 import entities.Enemy4;
 import entities.Guide;
+import entities.Pit;
 import entities.Player;
 import entities.Fire;
 import entities.PowerUp;
@@ -43,6 +44,7 @@ class PlayState extends FlxState
 	private var obsfire:FlxTypedGroup<Fire>;
 	private var obsdeslizante:FlxTypedGroup<Deslizante>;
 	private var enemybullet:FlxTypedGroup<Shot>;
+	private var obspit:FlxTypedGroup<Pit>;
 	
 
 	override public function create():Void
@@ -56,7 +58,8 @@ class PlayState extends FlxState
 		obsfire = new FlxTypedGroup<Fire>();
 		obspinchos = new FlxTypedGroup<Pinchos>();
 		obsdeslizante = new FlxTypedGroup<Deslizante>();
-		obsfire = new FlxTypedGroup<Fire>();	
+		obsfire = new FlxTypedGroup<Fire>();
+		obspit = new FlxTypedGroup<Pit>();
 		enemybullet = new FlxTypedGroup<Shot>();
 		loader = new FlxOgmoLoader(AssetPaths.level__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 16, 16, "Tilesets");
@@ -79,6 +82,7 @@ class PlayState extends FlxState
 		add(obsfire);
 		add(obspinchos);
 		add(obsdeslizante);
+		add(obspit);
 
 	}
 
@@ -95,6 +99,7 @@ class PlayState extends FlxState
 	    FlxG.collide(powerUps, player, colPlayerPowerUps);
 		FlxG.overlap(obspinchos, player, colPlayerObsPincho);
 		FlxG.collide(obsdeslizante, player, colPlayerObsDeslizante);
+		FlxG.overlap(obspit, player, colPlayerPit);
 		if (FlxG.keys.justPressed.R)
 			FlxG.resetState();
 	}
@@ -154,6 +159,14 @@ private function entityCreator(entityName:String, entityData:Xml)
 				obstaculoDeslizante.y = y;
 				obsdeslizante.add(obstaculoDeslizante);
 				add(obsdeslizante);
+				
+			
+			case "Pit":
+				var obstaculoPit = new Pit();
+				obstaculoPit.x = x;
+				obstaculoPit.y = y;
+				obspit.add(obstaculoPit);
+				add(obspit);
 		}
 	}
 	
@@ -173,6 +186,10 @@ private function entityCreator(entityName:String, entityData:Xml)
 	  p.die();
 	}
 	
+	private function colPlayerPit(e:Pit, p:Player):Void
+	{
+		p.die();
+	}
 	private function colPlayerObsDeslizante(d:Deslizante, p:Player):Void
 	{
 		/*if(p.velocity.x > 0)
