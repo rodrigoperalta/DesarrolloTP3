@@ -10,6 +10,7 @@ import entities.Guide;
 import entities.Pit;
 import entities.Player;
 import entities.Fire;
+import entities.PlataformaTemp;
 import entities.PowerUp;
 import entities.Pinchos;
 import entities.Shot;
@@ -45,6 +46,7 @@ class PlayState extends FlxState
 	private var obsdeslizante:FlxTypedGroup<Deslizante>;
 	private var enemybullet:FlxTypedGroup<Shot>;
 	private var obspit:FlxTypedGroup<Pit>;
+	private var obstemp:FlxTypedGroup<PlataformaTemp>;
 	
 
 	override public function create():Void
@@ -60,6 +62,7 @@ class PlayState extends FlxState
 		obsdeslizante = new FlxTypedGroup<Deslizante>();
 		obsfire = new FlxTypedGroup<Fire>();
 		obspit = new FlxTypedGroup<Pit>();
+		obstemp = new FlxTypedGroup<PlataformaTemp>();
 		enemybullet = new FlxTypedGroup<Shot>();
 		loader = new FlxOgmoLoader(AssetPaths.level__oel);
 		tileMap = loader.loadTilemap(AssetPaths.tiles__png, 16, 16, "Tilesets");
@@ -167,6 +170,12 @@ private function entityCreator(entityName:String, entityData:Xml)
 				obstaculoPit.y = y;
 				obspit.add(obstaculoPit);
 				add(obspit);
+			case "Plataformatemp":
+				var obstaculoTemp = new PlataformaTemp();
+				obstaculoTemp.x = x;
+				obstaculoTemp.y = y;
+				obstemp.add(obstaculoTemp);
+				add(obstemp);
 		}
 	}
 	
