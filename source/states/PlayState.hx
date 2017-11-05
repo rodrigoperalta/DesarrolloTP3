@@ -23,6 +23,7 @@ import flixel.addons.editors.ogmo.FlxOgmoLoader;
 import flixel.tile.FlxTilemap;
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.ui.FlxBar;
 
 class PlayState extends FlxState
 {
@@ -47,6 +48,7 @@ class PlayState extends FlxState
 	private var enemybullet:FlxTypedGroup<Shot>;
 	private var obspit:FlxTypedGroup<Pit>;
 	private var obstemp:FlxTypedGroup<PlataformaTemp>;
+	private var playerbar:FlxBar;
 	
 
 	override public function create():Void
@@ -71,7 +73,7 @@ class PlayState extends FlxState
 		guide = new Guide(player.x, FlxG.height/2);
 		//backGround = new FlxBackdrop(AssetPaths.Fondo__jpg);
 
-		
+		playerbar = new FlxBar(100, 100, FlxBarFillDirection.BOTTOM_TO_TOP, 5, 30, player, "lives", 0, 10, true);
 		
 
 		FlxG.worldBounds.set(0, 0, tileMap.width, tileMap.height);
@@ -86,6 +88,7 @@ class PlayState extends FlxState
 		add(obspinchos);
 		add(obsdeslizante);
 		add(obspit);
+		add(playerbar);
 
 	}
 
@@ -93,6 +96,12 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 		guide.getPlayerPos(player.x, player.y);
+		
+		playerbar.x = player.x - 7;
+		playerbar.y = player.y + 3;
+		//playerbar.setFacingFlip(FlxObject.RIGHT, false, false);
+		//playerbar.setFacingFlip(FlxObject.LEFT, true, false);
+		
 		FlxG.collide(tileMap, player);
 		FlxG.collide(enemies1, player, colPlayerEnemy1);
 		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1); 

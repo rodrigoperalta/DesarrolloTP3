@@ -28,6 +28,7 @@ class Player extends FlxSprite
 	private var powerUp3:PowerUp3;
 	private var ammo:Int;
 	private var powerUp0Side:Bool;
+	private var timer:Float;
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
@@ -59,7 +60,7 @@ class Player extends FlxSprite
 	{
 		stateMachine();
 		super.update(elapsed);
-
+		//dieFire(elapsed);
 	}
 
 	private function stateMachine():Void
@@ -198,6 +199,46 @@ class Player extends FlxSprite
 
 	}
 
+	//public function dieFire(elapsed:Float):Void
+	//{
+		//timer += 1 * elapsed;
+		//if (timer > 5)
+		//{
+			//lives - 2;
+		//}
+		//
+		//if (lives == 0)
+		//{
+			//this.kill();
+		//}
+		
+		
+		
+		//lives--;
+		//if (lives==0)
+		//{
+			//this.kill();
+		//}
+	//}
+	
+	//public function diePit():Void
+	//{
+		//lives--;
+		//if (lives==0)
+		//{
+			//this.kill();
+		//}
+	//}
+	
+	//public function diePinchos():Void
+	//{
+		//lives--;
+		//if (lives==0)
+		//{
+			//this.kill();
+		//}
+	//}
+	
 	public function die():Void
 	{
 		lives--;
@@ -206,7 +247,7 @@ class Player extends FlxSprite
 			this.kill();
 		}
 	}
-
+	
 	public function get_atk():Attack
 	{
 		return atk;
