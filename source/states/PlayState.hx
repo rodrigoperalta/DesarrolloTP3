@@ -170,7 +170,8 @@ private function entityCreator(entityName:String, entityData:Xml)
 				obstaculoPit.y = y;
 				obspit.add(obstaculoPit);
 				add(obspit);
-			case "Plataformatemp":
+			
+				case "Plataformatemp":
 				var obstaculoTemp = new PlataformaTemp();
 				obstaculoTemp.x = x;
 				obstaculoTemp.y = y;
@@ -184,7 +185,11 @@ private function entityCreator(entityName:String, entityData:Xml)
 		enemies1.remove(e, true);
 		player.die();		
 	}
-	
+	private function colPlayerEnemybullet(e:Shot, p:Player):Void
+	{
+		enemybullet.remove(e, true);
+		player.die();
+	}
 	private function colPlayerObsFire(f:Fire, p:Player):Void
 	{
 	  p.die();
