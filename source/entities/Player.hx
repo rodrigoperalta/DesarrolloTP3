@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.effects.FlxFlicker;
 /**
  * ...
  * @author yo
@@ -198,46 +199,20 @@ class Player extends FlxSprite
 		}
 
 	}
-
-	//public function dieFire(elapsed:Float):Void
-	//{
-		//timer += 1 * elapsed;
-		//if (timer > 5)
-		//{
-			//lives - 2;
-		//}
-		//
-		//if (lives == 0)
-		//{
-			//this.kill();
-		//}
-		
-		
-		
-		//lives--;
-		//if (lives==0)
-		//{
-			//this.kill();
-		//}
-	//}
 	
-	//public function diePit():Void
-	//{
-		//lives--;
-		//if (lives==0)
-		//{
-			//this.kill();
-		//}
-	//}
-	
-	//public function diePinchos():Void
-	//{
-		//lives--;
-		//if (lives==0)
-		//{
-			//this.kill();
-		//}
-	//}
+	public function getDamage(damage:Int)
+	{
+		if (lives<=0)
+			this.kill();
+		
+		if (!FlxFlicker.isFlickering(this))
+		{	
+			lives -= damage;
+			if (lives >= 0)
+			FlxFlicker.flicker(this, 3, 0.08, true, true);
+			
+		}
+	}
 	
 	public function die():Void
 	{

@@ -201,17 +201,17 @@ private function entityCreator(entityName:String, entityData:Xml)
 	}
 	private function colPlayerObsFire(f:Fire, p:Player):Void
 	{
-	  p.die();
+	  p.getDamage(Reg.damageFire);
 	}
 	
 	private function colPlayerObsPincho(pi:Pinchos, p:Player):Void
 	{
-	  p.die();
+	  p.getDamage(Reg.damagePinchos);
 	}
 	
 	private function colPlayerPit(e:Pit, p:Player):Void
 	{
-		p.die();
+		p.getDamage(Reg.damagePit);
 	}
 	private function colPlayerObsDeslizante(d:Deslizante, p:Player):Void
 	{
