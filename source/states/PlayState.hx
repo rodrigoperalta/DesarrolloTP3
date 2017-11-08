@@ -172,7 +172,7 @@ FlxG.collide(obstemp, player);
 			case "Enemies2":
 				var enemy2 = new Enemy2(powerUps, x, y);
 				enemies2.add(enemy2);
-				add(enemy2);
+				add(enemies2);
 
 			case "Enemies3":
 				var enemy3 = new Enemy3(powerUps, enemybullet,x, y);
@@ -227,6 +227,7 @@ FlxG.collide(obstemp, player);
 		enemies1.remove(e, true);
 		player.die();
 	}
+	
 	private function colPlayerEnemy2(e:Enemy2, p:Player):Void
 	{
 		enemies2.remove(e, true);

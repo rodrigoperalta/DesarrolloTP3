@@ -32,7 +32,7 @@ class Player extends FlxSprite
 	private var ammo:Int;
 	private var powerUp0Side:Bool;
 	private var timer:Float;
-	//private var youdie:FlxText;
+	private var youdie:FlxText;
 	
 
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
@@ -54,7 +54,7 @@ class Player extends FlxSprite
 		FlxG.state.add(powerUp4);
 		acceleration.y = 1600;
 		currentState = States.IDLE;
-		lives = 10;
+		lives = 1;
 		width = 15;
 		ammo = 5;
 		offset.x = 2;
@@ -64,7 +64,9 @@ class Player extends FlxSprite
 		setFacingFlip(FlxObject.LEFT, true, false);
 		//if (setFacingFlip(LEFT))
 		//	offset.x = 0;
-		//youdie = new FlxText (x, 160, 0, "Press R to restart, Esc to quit", 10);
+		
+		
+		//youdie.set_visible(true);
 		
 	}
 
@@ -238,8 +240,11 @@ class Player extends FlxSprite
 	{
 		if (lives<=0)
 		{	
+			youdie = new FlxText (this.x-30, this.y-5, 0, "Press R to restart, Esc to quit", 7);
+			FlxG.state.add(youdie);
 			this.kill();
-			//youdie = new FlxText (x, 160, 0, "Press R to restart, Esc to quit", 10);
+			
+		
 		}
 		if (!FlxFlicker.isFlickering(this))
 		{
@@ -253,10 +258,13 @@ class Player extends FlxSprite
 	public function die():Void
 	{
 		lives--;
-		if (lives==0)
+		if (lives<=0)
 		{
+			youdie = new FlxText (this.x-30, this.y-8, 0, "Press R to restart, Esc to quit", 7);
+			FlxG.state.add(youdie);
 			this.kill();
-			//youdie = new FlxText (this.x, this.y, 0, "Press R to restart, Esc to quit", 10);
+			
+			
 		}
 	}
 
@@ -267,15 +275,19 @@ class Player extends FlxSprite
 
 	public function getPowerUp(pU:Int):Void
 	{
+		var aux:Int = 0;
+		aux = powerUp;
 		powerUp = pU;
 		if (powerUp == 1)
 		{
+			powerUp = aux;
 			ammo += 5;
 		}
 
 		if (powerUp == 2)
 		{
-			lives += 5;
+			powerUp = aux;
+			lives += 1;
 		}
 	}
 	

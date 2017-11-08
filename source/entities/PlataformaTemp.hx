@@ -15,7 +15,7 @@ class PlataformaTemp extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		loadGraphic(AssetPaths.Piso_2__png, true, 16, 16);
+		loadGraphic(AssetPaths.Piso2__png, true, 64, 16);
 		timer = 0;
 		this.immovable = true;
 	}
