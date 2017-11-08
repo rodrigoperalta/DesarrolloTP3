@@ -54,7 +54,7 @@ class Player extends FlxSprite
 		FlxG.state.add(powerUp4);
 		acceleration.y = 1600;
 		currentState = States.IDLE;
-		lives = 1;
+		lives = 10;
 		width = 15;
 		ammo = 5;
 		offset.x = 2;
