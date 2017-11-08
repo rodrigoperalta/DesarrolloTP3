@@ -140,7 +140,7 @@ class PlayState extends FlxState
 		FlxG.collide(obsdeslizante, player, colPlayerObsDeslizante);
 		FlxG.overlap(obspit, player, colPlayerPit);
 		FlxG.collide(player.get_atk(), enemies1, colAttackEnemy1);
-
+FlxG.collide(obstemp, player);
 		if (FlxG.keys.justPressed.R)
 			FlxG.resetState();
 		//createTempPlat(elapsed);
