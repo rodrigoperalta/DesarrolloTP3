@@ -787,5 +787,6 @@
     <Fire id="735" x="2736" y="320" />
     <Fire id="0" x="2640" y="320" />
     <Deslizante id="732" x="2640" y="304" />
+    <Plataformatemp id="736" x="144" y="224" />
   </Entities>
 </level>

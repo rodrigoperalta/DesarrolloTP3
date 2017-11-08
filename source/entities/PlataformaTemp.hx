@@ -20,21 +20,37 @@ class PlataformaTemp extends FlxSprite
 	}
 	override public function update(elapsed:Float):Void
 	{
+
 		super.update(elapsed);
-		//trace(timer);
-		create(elapsed);
+		addTime();
+		die();
+		comeBackVel();
+		
+		
+
+	}
+	private function die():Void
+	{
+		
+		if (timer>50)
+		{
+			timer = 0;
+		}
 		
 	}
 	
-	private function create(elapsed:Float) :Void
+	private function addTime():Void
 	{
-		timer += 1*elapsed;
-		if (timer>4)
-		{
-			this.y -= 15;
-			timer= 0;
-		}
-		
+		if (alive) 
+		timer += 1;
+	}
+	
+	public function comeBackVel():Void
+	{
+		if (timer<25) 
+		this.velocity.x = Reg.velPlat;
+		else
+		this.velocity.x = -Reg.velPlat;
 		
 	}
 	

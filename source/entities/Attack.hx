@@ -15,7 +15,7 @@ class Attack extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(5, 5, 0xFFFFFF00);
+		loadGraphic(AssetPaths.manogolpe__png, true, 12, 17);
 		timer = 0;
 		kill();
 		x = 0;

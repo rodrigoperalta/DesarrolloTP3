@@ -14,7 +14,7 @@ class PowerUp3 extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(5, 5, 0xFFFFFFFF);
+		loadGraphic(AssetPaths.boomerang__png, true, 19, 24);
 		timer = 0;
 		kill();
 		

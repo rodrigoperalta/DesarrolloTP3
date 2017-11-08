@@ -14,7 +14,7 @@ class PowerUp0 extends FlxSprite
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
 		super(X, Y, SimpleGraphic);
-		makeGraphic(5, 5, 0xFFFFFFFF);
+		loadGraphic(AssetPaths.hacha__png, true, 19, 28);
 		timer = 0;
 		kill();
 		

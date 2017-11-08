@@ -186,22 +186,24 @@ class Player extends FlxSprite
 				powerUp0.reset(this.x + 8, this.y + 15);
 				powerUp0.acceleration.y = 1600;
 				ammo -= 1;
+				
 
 			}
 
 			if (powerUp == 3)
 			{
-
+			
 				currentState = States.ATTACK;
 				powerUp3.reset(this.x + 8, this.y + 15);
 				ammo -= 1;
+				
 			}
 
 			if (powerUp == 4)
 			{
 
 				currentState = States.ATTACK;
-				powerUp4.reset(this.x - this.width, this.y-15);
+				powerUp4.reset(this.x , this.y+10);
 				ammo -= 1;
 
 			}
