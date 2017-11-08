@@ -18,7 +18,7 @@ class Enemy3 extends Enemy
 	{
 		super(pU, X, Y, SimpleGraphic);
 		eneBullets = eB;
-		makeGraphic(5, 5, 0xffffffff);
+		loadGraphic(AssetPaths.Canon__png, false, 16, 16);
 		timer = 0;
 
 	}

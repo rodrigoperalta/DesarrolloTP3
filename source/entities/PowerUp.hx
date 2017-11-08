@@ -14,8 +14,8 @@ class PowerUp extends FlxSprite
 	private var t(get, null):Int;
 	public function new(type:Int, ?X:Float = 0, ?Y:Float = 0, ?SimpleGraphic:FlxGraphicAsset)
 	{
-		//t = type;
-		t = 0;
+		t = type;
+		//t = 0;
 		super(X, Y, SimpleGraphic);
 		if (t == 0 )
 		{

@@ -2,6 +2,7 @@ package entities;
 
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.input.FlxAccelerometer;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 
 /**
@@ -20,7 +21,7 @@ class PlataformaTemp extends FlxSprite
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		trace(timer);
+		//trace(timer);
 		create(elapsed);
 		
 	}
@@ -28,17 +29,13 @@ class PlataformaTemp extends FlxSprite
 	private function create(elapsed:Float) :Void
 	{
 		timer += 1*elapsed;
-		if (timer>3)
+		if (timer>4)
 		{
-
-			kill();		
+			this.y -= 15;
 			timer= 0;
 		}
 		
-		/*if (timer <= 0)
-		{
-			revive();
-		}*/
+		
 	}
 	
 }

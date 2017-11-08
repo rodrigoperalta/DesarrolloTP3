@@ -33,7 +33,8 @@ class Enemy1 extends Enemy
 	
 	public function movement():Void
 	{
-		velocity.x = -50;
+		if(isOnScreen())
+			velocity.x = -50;
 	}
 	
 	public function die():Void

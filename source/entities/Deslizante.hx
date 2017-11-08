@@ -14,9 +14,9 @@ class Deslizante extends FlxSprite
 	{
 		super(X, Y, SimpleGraphic);
 		
-		loadGraphic(AssetPaths.Pisodeslisante__png, true, 16, 20);
+		loadGraphic(AssetPaths.Pisodeslisante__png, true, 16, 16);
 		//immovable = true;
-		height = 20;
+		//height = 20;
 		
 		
 		

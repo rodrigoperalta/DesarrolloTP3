@@ -43,7 +43,7 @@ class Enemy extends FlxSprite
 	public function dropPowerUp():Void
 	{
 
-		if (timerPU % 1 == 0)
+		if (timerPU % 3 == 0)
 		{
 			var powerUp = new PowerUp(pUtype, this.x, this.y);
 			powerUps.add(powerUp);
@@ -52,5 +52,4 @@ class Enemy extends FlxSprite
 		
 
 	}
-
 }

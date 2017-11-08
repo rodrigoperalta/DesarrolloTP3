@@ -26,13 +26,11 @@ class Enemy2 extends Enemy
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		
 	}
 	public function movement():Void
 	{
 		velocity.x = -50;
 		var v = y + 35;
 		FlxTween.tween(this, { y: v }, 0.5, {type:FlxTween.PINGPONG, ease: FlxEase.sineInOut});
-		
 	}
 }

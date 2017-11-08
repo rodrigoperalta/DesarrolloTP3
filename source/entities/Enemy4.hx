@@ -16,18 +16,21 @@ import flixel.math.FlxVelocity;
 class Enemy4 extends Enemy 
 {
 
-	public var speed:Float = -100;
+	public var speed:Float = 100;
 	public var etype(default, null):Int;
 	private var _brain:FSM;
 	private var _idleTmr:Float;
 	private var _moveDir:Float;
 	public var seesPlayer:Bool = false;
 	public var playerPos(default, null):FlxPoint;
+	
 
-	public function new(pU:FlxTypedGroup<PowerUp>,?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
+
+	public function new(pU:FlxTypedGroup<PowerUp>,EType:Int,?X:Float=0, ?Y:Float=0,  ?SimpleGraphic:FlxGraphicAsset)
 	{
-		super(pU,X, Y, SimpleGraphic);
-		makeGraphic(5, 5, 0xffffffff);
+		super(pU, X, Y, SimpleGraphic);
+		etype = EType;
+		loadGraphic(AssetPaths.dron__png, false, 26, 10);
 		_brain = new FSM(idle);
 		_idleTmr = 0;
 		playerPos = FlxPoint.get();
@@ -43,30 +46,33 @@ class Enemy4 extends Enemy
 
 	public function idle():Void
 	{
-		if (seesPlayer)
+		if(isOnScreen())
 		{
-			_brain.activeState = chase;
-		}
-		else if (_idleTmr <= 0)
-		{
-			if (FlxG.random.bool(1))
+			if (seesPlayer)
 			{
-				_moveDir = -1;
-				velocity.x = velocity.y = 0;
+				_brain.activeState = chase;
+			}
+			else if (_idleTmr <= 0)
+			{
+				if (FlxG.random.bool(1))
+				{
+					_moveDir = -1;
+					velocity.x = velocity.y = 0;
+				}
+				else
+				{
+					_moveDir = FlxG.random.int(0, 8) * 45;
+
+					velocity.set(speed * 0.5, 0);
+					velocity.rotate(FlxPoint.weak(), _moveDir);
+
+				}
+				_idleTmr = FlxG.random.int(1, 4);
 			}
 			else
-			{
-				_moveDir = FlxG.random.int(0, 8) * 45;
-
-				velocity.set(speed * 0.5, 0);
-				velocity.rotate(FlxPoint.weak(), _moveDir);
-
-			}
-			_idleTmr = FlxG.random.int(1, 4);
+				_idleTmr -= FlxG.elapsed;
+		
 		}
-		else
-			_idleTmr -= FlxG.elapsed;
-
 	}
 
 	public function chase():Void

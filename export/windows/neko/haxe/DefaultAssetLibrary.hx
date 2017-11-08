@@ -71,6 +71,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		Font.registerFont (__ASSET__flixel_fonts_nokiafc22_ttf);
 		Font.registerFont (__ASSET__flixel_fonts_monsterrat_ttf);
 		
@@ -80,6 +90,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -609,6 +629,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -622,12 +652,30 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/data/level.oel", AssetType.TEXT);
 		path.set ("assets/data/nivel.oep", "assets/data/nivel.oep");
 		type.set ("assets/data/nivel.oep", AssetType.TEXT);
+		path.set ("assets/images/ammo.png", "assets/images/ammo.png");
+		type.set ("assets/images/ammo.png", AssetType.IMAGE);
+		path.set ("assets/images/A_RoboCop_logo.png", "assets/images/A_RoboCop_logo.png");
+		type.set ("assets/images/A_RoboCop_logo.png", AssetType.IMAGE);
+		path.set ("assets/images/bala.png", "assets/images/bala.png");
+		type.set ("assets/images/bala.png", AssetType.IMAGE);
+		path.set ("assets/images/boomerang.png", "assets/images/boomerang.png");
+		type.set ("assets/images/boomerang.png", AssetType.IMAGE);
+		path.set ("assets/images/Canon.png", "assets/images/Canon.png");
+		type.set ("assets/images/Canon.png", AssetType.IMAGE);
+		path.set ("assets/images/dron.png", "assets/images/dron.png");
+		type.set ("assets/images/dron.png", AssetType.IMAGE);
 		path.set ("assets/images/enemigo.png", "assets/images/enemigo.png");
 		type.set ("assets/images/enemigo.png", AssetType.IMAGE);
+		path.set ("assets/images/Espada.png", "assets/images/Espada.png");
+		type.set ("assets/images/Espada.png", AssetType.IMAGE);
 		path.set ("assets/images/Fondo.jpg", "assets/images/Fondo.jpg");
 		type.set ("assets/images/Fondo.jpg", AssetType.IMAGE);
 		path.set ("assets/images/Fondo.psd", "assets/images/Fondo.psd");
 		type.set ("assets/images/Fondo.psd", AssetType.BINARY);
+		path.set ("assets/images/hacha.png", "assets/images/hacha.png");
+		type.set ("assets/images/hacha.png", AssetType.IMAGE);
+		path.set ("assets/images/manogolpe.png", "assets/images/manogolpe.png");
+		type.set ("assets/images/manogolpe.png", AssetType.IMAGE);
 		path.set ("assets/images/murcielago.png", "assets/images/murcielago.png");
 		type.set ("assets/images/murcielago.png", AssetType.IMAGE);
 		path.set ("assets/images/Pinchos.png", "assets/images/Pinchos.png");
@@ -640,6 +688,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/tiles.png", AssetType.IMAGE);
 		path.set ("assets/images/tilesfuego.png", "assets/images/tilesfuego.png");
 		type.set ("assets/images/tilesfuego.png", AssetType.IMAGE);
+		path.set ("assets/images/vida.png", "assets/images/vida.png");
+		type.set ("assets/images/vida.png", AssetType.IMAGE);
 		path.set ("assets/music/music-goes-here.txt", "assets/music/music-goes-here.txt");
 		type.set ("assets/music/music-goes-here.txt", AssetType.TEXT);
 		path.set ("assets/sounds/sounds-go-here.txt", "assets/sounds/sounds-go-here.txt");
@@ -667,7 +717,28 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "assets/data/nivel.oep";
 		path.set (id, id);
 		type.set (id, AssetType.TEXT);
+		id = "assets/images/ammo.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/A_RoboCop_logo.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/bala.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/boomerang.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/Canon.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/dron.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "assets/images/enemigo.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/Espada.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/Fondo.jpg";
@@ -676,6 +747,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "assets/images/Fondo.psd";
 		path.set (id, id);
 		type.set (id, AssetType.BINARY);
+		id = "assets/images/hacha.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/manogolpe.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "assets/images/murcielago.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
@@ -692,6 +769,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/tilesfuego.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/vida.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "assets/music/music-goes-here.txt";
@@ -741,6 +821,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#if (windows || mac || linux)
 		
 		var useManifest = false;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
+		useManifest = true;
 		useManifest = true;
 		useManifest = true;
 		useManifest = true;
@@ -1503,6 +1593,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
+
+
+
+
+
+
 @:keep @:bind #if display private #end class __ASSET__flixel_sounds_beep_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__flixel_sounds_flixel_ogg extends null { }
 @:keep @:bind #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends null { }
@@ -1512,6 +1612,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
+
+
+
+
+
+
+
+
+
 
 
 
